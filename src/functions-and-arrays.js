@@ -1,44 +1,72 @@
 // Iteration #1: Find the maximum
-function maxOfTwoNumbers() {}
-
+function maxOfTwoNumbers(num1, num2) {
+  if (num1 > num2) {
+    return num1;
+  } else {
+    return num2;
+  }
+}
 
 
 // Iteration #2: Find longest word
 const words = ['mystery', 'brother', 'aviator', 'crocodile', 'pearl', 'orchard', 'crackpot'];
-
-function findLongestWord() {}
+function findLongestWord(wordsArray) {
+  let longestWord = '';
+  for (let i = 0; i < wordsArray.length; i++) {
+    if (wordsArray[i].length > longestWord.length) {
+      longestWord = wordsArray[i];
+    }
+  }
+  return longestWord;
+}
 
 
 
 // Iteration #3: Calculate the sum
 const numbers = [6, 12, 1, 18, 13, 16, 2, 1, 8, 10];
-
-function sumNumbers() {}
-
+function sumNumbers() {
+  let sum = 0;
+  for (let i = 0; i < numbers.length; i++) {
+    sum += numbers[i];
+  }
+  return sum;
+}
 
 
 // Iteration #3.1 Bonus:
-function sum() {}
-
+const numbers = [6, 12, 1, 18, 13, 16, 2, 1, 8, 10];
+function sum() {
+  return numbers.reduce((acc, curr) => acc + curr, 0);
+}
 
 
 // Iteration #4: Calculate the average
 // Level 1: Array of numbers
 const numbersAvg = [2, 6, 9, 10, 7, 4, 1, 9];
-
-function averageNumbers() {}
+function averageNumbers() {
+  let sum = 0;
+  let count = 0;
+  numbersAvg.forEach((num) => {
+    sum += num;
+    count++;
+  });
+  return sum / count;
+}
 
 
 // Level 2: Array of strings
 const wordsArr = ['seat', 'correspond', 'linen', 'motif', 'hole', 'smell', 'smart', 'chaos', 'fuel', 'palace'];
+function averageWordLength() {
+  const sum = wordsArr.reduce((acc, curr) => acc + curr.length, 0);
+  return sum / wordsArr.length;
+}
 
-function averageWordLength() { }
 
 // Bonus - Iteration #4.1
 function avg() {}
 
 // Iteration #5: Unique arrays
-const wordsUnique = [
+const words = [
   'crab',
   'poison',
   'contagious',
@@ -51,15 +79,22 @@ const wordsUnique = [
   'simple',
   'bring'
 ];
-
-function uniquifyArray() {}
+function uniquifyArray(wordsArray) {
+  return wordsArray.reduce((acc, curr) => {
+    if (!acc.includes(curr)) {
+      acc.push(curr);
+    }
+    return acc;
+  }, []);
+}
 
 
 
 // Iteration #6: Find elements
 const wordsFind = ['machine', 'subset', 'trouble', 'starting', 'matter', 'eating', 'truth', 'disobedience'];
-
-function doesWordExist() {}
+function doesWordExist(wordsArray, word) {
+  return wordsArray.includes(word);
+}
 
 
 
@@ -77,8 +112,10 @@ const wordsCount = [
   'disobedience',
   'matter'
 ];
+function howManyTimes(wordsArray, word) {
+  return wordsArray.filter(el => el === word).length;
+}
 
-function howManyTimes() {}
 
 
 
@@ -106,7 +143,38 @@ const matrix = [
   [1, 70, 54, 71, 83, 51, 54, 69, 16, 92, 33, 48, 61, 43, 52, 1, 89, 19, 67, 48]
 ];
 
-function greatestProduct() {}
+//cheated!
+function greatestProduct(matrix) {
+  let maxProduct = Number.MIN_SAFE_INTEGER;
+  for (let i = 0; i < matrix.length; i++) {
+    for (let j = 0; j < matrix[i].length; j++) {
+      // Check the product horizontally to the right
+      if (j <= matrix[i].length - 4) {
+        let product = matrix[i][j] * matrix[i][j + 1] * matrix[i][j + 2] * matrix[i][j + 3];
+        maxProduct = Math.max(maxProduct, product);
+      }
+
+      // Check the product vertically downwards
+      if (i <= matrix.length - 4) {
+        let product = matrix[i][j] * matrix[i + 1][j] * matrix[i + 2][j] * matrix[i + 3][j];
+        maxProduct = Math.max(maxProduct, product);
+      }
+
+      // Check the product diagonally downwards to the right
+      if (i <= matrix.length - 4 && j <= matrix[i].length - 4) {
+        let product = matrix[i][j] * matrix[i + 1][j + 1] * matrix[i + 2][j + 2] * matrix[i + 3][j + 3];
+        maxProduct = Math.max(maxProduct, product);
+      }
+
+      // Check the product diagonally downwards to the left
+      if (i <= matrix.length - 4 && j >= 3) {
+        let product = matrix[i][j] * matrix[i + 1][j - 1] * matrix[i + 2][j - 2] * matrix[i + 3][j - 3];
+        maxProduct = Math.max(maxProduct, product);
+      }
+    }
+  }
+  return maxProduct;
+}
 
 
 
@@ -128,3 +196,4 @@ if (typeof module !== 'undefined') {
     greatestProduct
   };
 }
+
